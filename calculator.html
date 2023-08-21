@@ -60,72 +60,89 @@
 
 <script>
 
-let newNum = ""
-let operatorInput = ""
-let total = 0
+let currentOperatorInput = ""
+let previousOperatorInput = ""
+let newTotal = 0
+let oldTotal = 0
+let currentNum = ""
+let preceedingNum = ""
+let preceedingNumInt
+let currentNumInt
 const button = document.querySelectorAll(".number")
 const operatorSign = document.querySelectorAll(".operator")
 const display = document.querySelector(".textDisplay")
-display.textContent = total
+display.textContent = newTotal
 const equals = document.querySelector(".equals")
 const clear = document.querySelector(".clear")
 
 button.forEach((button) => {
     button.addEventListener("click", () => {
-        newNum += button.id
-        display.textContent = newNum
-        
-        console.log(newNum)
+        currentNum += button.id
+        display.textContent = currentNum
+        console.log(currentNum)
     })
 })
 
 operatorSign.forEach((operator) => {
     operator.addEventListener("click", () => {
-        operatorInput = operator.id
-        numberTwo = parseFloat(newNum)
-        totalNum = parseFloat(total)
-        total = operate(totalNum, operatorInput, numberTwo)
-        display.textContent = total
-        newNum = " "
-        console.log(total, operatorInput, newNum)
+        previousOperatorInput = currentOperatorInput
+        currentOperatorInput = operator.id
+        currentNumInt = parseFloat(currentNum)
+        if (previousOperatorInput === "") {
+            console.log("Cant calculate yet")
+            newTotal = currentNumInt
+        } else {
+         newTotal = operate(newTotal, previousOperatorInput, currentNumInt)
+            display.textContent = newTotal
+        }
+        if (newTotal === "NaN") {
+            newTotal = oldTotal
+            display.textContent = newTotal
+        }
+    
+        currentNum = ""
+        oldTotal = newTotal
+        console.log(oldTotal)
     })
-
 })
 
 clear.addEventListener("click", () => {
-    total = 0
-    display.textContent = total
-    operatorInput = ""
-    newNum = ""  
+    newTotal = 0
+    currentNum = ""
+    previousOperatorInput = ""
+    currentOperatorInput = ""
+    preceedingNum = ""
+    display.textContent = newTotal
+    
 })
 
 equals.addEventListener("click", () => {
-    totalNum = parseInt(total)
-    numberTwo = parseInt(newNum)
-    total = operate(totalNum, operatorInput, numberTwo)
-    display.textContent = total
+    previousOperatorInput = currentOperatorInput
+    currentNumInt = parseFloat(currentNum)
+
+    newTotal = operate(newTotal, previousOperatorInput, currentNumInt)
+    display.textContent = newTotal
+
+    currentNum = ""
 })
 
 
 
-
-
-
-    function operate (numberOne, operator, numberTwo) {
-        if (operator === "+") {
-            return add(numberOne,numberTwo)
-        }
-        if (operator === "-") {
-            return subtract(numberOne,numberTwo)
-        }
-        if (operator === "*") {
-           return multiply(numberOne,numberTwo)
-        }
-        if (operator === "/") {
-            return divide(numberOne,numberTwo)
-        }
-    
+function operate (numberOne, operator, numberTwo) {
+    if (operator === "+") {
+        return add(numberOne,numberTwo)
     }
+    if (operator === "-") {
+        return subtract(numberOne,numberTwo)
+    }
+    if (operator === "*") {
+        return multiply(numberOne,numberTwo)
+    }
+    if (operator === "/") {
+        return divide(numberOne,numberTwo)
+    }
+    
+}
     
     
     function add(a,b) {
