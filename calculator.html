@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="calculatorBody">
+        <div class="display">
+            <div class="textDisplay"></div>
+        </div>
+        <div class="row One">
+            <button class="clear button ac">AC</button>
+            <button id="/" class="operator button">/</button>
+        </div>
+        <div class="row Two">
+            <button id="7" class="number button">7</button>
+            <button id="8" class="number button">8</button>
+            <button id="9" class="number button">9</button>
+            <button id="*" class="operator button">*</button>
+        </div>
+        <div class="row Three">
+            <button id="4" class="number button">4</button>
+            <button id="5" class="number button">5</button>
+            <button id="6" class="number button">6</button>
+            <button id="-" class="operator button">-</button>
+        </div>
+        <div class="row Four">
+            <button id="1" class="number button">1</button>
+            <button id="2" class="number button">2</button>
+            <button id="3" class="number button">3</button>
+            <button id="+" class="operator button">+</button>
+        </div>
+        <div class="row Five">
+            <button id="0" class="number button zero">0</button>
+            <button id="." class="number button">.</button>
+            <button id="=" class="equals button">=</button>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+<script>
+
+let newNum = ""
+let operatorInput = ""
+let total = 0
+const button = document.querySelectorAll(".number")
+const operatorSign = document.querySelectorAll(".operator")
+const display = document.querySelector(".textDisplay")
+display.textContent = total
+const equals = document.querySelector(".equals")
+const clear = document.querySelector(".clear")
+
+button.forEach((button) => {
+    button.addEventListener("click", () => {
+        newNum += button.id
+        display.textContent = newNum
+        
+        console.log(newNum)
+    })
+})
+
+operatorSign.forEach((operator) => {
+    operator.addEventListener("click", () => {
+        operatorInput = operator.id
+        numberTwo = parseFloat(newNum)
+        totalNum = parseFloat(total)
+        total = operate(totalNum, operatorInput, numberTwo)
+        display.textContent = total
+        newNum = " "
+        console.log(total, operatorInput, newNum)
+    })
+
+})
+
+clear.addEventListener("click", () => {
+    total = 0
+    display.textContent = total
+    operatorInput = ""
+    newNum = ""  
+})
+
+equals.addEventListener("click", () => {
+    totalNum = parseInt(total)
+    numberTwo = parseInt(newNum)
+    total = operate(totalNum, operatorInput, numberTwo)
+    display.textContent = total
+})
+
+
+
+
+
+
+    function operate (numberOne, operator, numberTwo) {
+        if (operator === "+") {
+            return add(numberOne,numberTwo)
+        }
+        if (operator === "-") {
+            return subtract(numberOne,numberTwo)
+        }
+        if (operator === "*") {
+           return multiply(numberOne,numberTwo)
+        }
+        if (operator === "/") {
+            return divide(numberOne,numberTwo)
+        }
+    
+    }
+    
+    
+    function add(a,b) {
+        return a + b
+    }
+    
+    function subtract (a,b) {
+        return a - b
+    }
+    
+    function multiply(a,b) {
+        return a * b
+    }
+    
+    function divide(a,b) {
+        return a / b
+    }
+    </script>
