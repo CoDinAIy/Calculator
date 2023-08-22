@@ -3,15 +3,17 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 36px;
-    text-align: CE;
+
 }
 
 .calculatorBody {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     width: 400px;
     height: 620px;
     border: solid 2px black;
+    background-color: black;
 }
 
 .row {
@@ -22,22 +24,23 @@ body {
 .display {
     height: 100px;
     margin: 5px;
-    border: solid grey;
+    background-color: grey;
     display: flex;
     justify-content: end;
     align-items: end;
+    color: black;
 }
 
 button {
     flex-grow: 1;
     text-align: center;
-    border: solid grey;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 5px;
     font-size: 36px;
     padding: 0px;
+    border-radius: 10px;
     
     
 }

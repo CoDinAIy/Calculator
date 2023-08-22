@@ -63,7 +63,6 @@
 let currentOperatorInput = ""
 let previousOperatorInput = ""
 let newTotal = 0
-let oldTotal = 0
 let currentNum = ""
 let preceedingNum = ""
 let preceedingNumInt
@@ -88,21 +87,14 @@ operatorSign.forEach((operator) => {
         previousOperatorInput = currentOperatorInput
         currentOperatorInput = operator.id
         currentNumInt = parseFloat(currentNum)
-        if (previousOperatorInput === "") {
+        if (previousOperatorInput === "" || currentNumInt === "") {
             console.log("Cant calculate yet")
             newTotal = currentNumInt
         } else {
          newTotal = operate(newTotal, previousOperatorInput, currentNumInt)
-            display.textContent = newTotal
-        }
-        if (newTotal === "NaN") {
-            newTotal = oldTotal
-            display.textContent = newTotal
-        }
-    
+            display.textContent = Math.round(newTotal * 1000) / 1000
+        }    
         currentNum = ""
-        oldTotal = newTotal
-        console.log(oldTotal)
     })
 })
 
@@ -117,13 +109,12 @@ clear.addEventListener("click", () => {
 })
 
 equals.addEventListener("click", () => {
-    previousOperatorInput = currentOperatorInput
     currentNumInt = parseFloat(currentNum)
+    newTotal = operate(newTotal, currentOperatorInput, currentNumInt)
+    display.textContent = Math.round(newTotal * 1000) / 1000
+    currentOperatorInput = ""
 
-    newTotal = operate(newTotal, previousOperatorInput, currentNumInt)
-    display.textContent = newTotal
-
-    currentNum = ""
+    currentNum = newTotal
 })
 
 
